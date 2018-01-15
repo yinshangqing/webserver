@@ -2,8 +2,7 @@
 	> File Name: webserver.cpp
 	> Author: yinshangqing
 	> Mail: 841668821@qq.com 
-	> Created Time: 2018å¹´1æœˆ14æ—¥ æ˜ŸæœŸæ—¥ 20ç‚¹06åˆ†09ç§’
-************************************************************************/
+	> Created Time: 2018å¹?æœ?4æ—?æ˜ŸæœŸæ—?20ç‚?6åˆ?9ç§?************************************************************************/
 
 
 #include <stdio.h>
@@ -32,6 +31,8 @@ int sendobj(int connectfd,char* serverfilepath);
 int IsDIR(char* fpath);
 
 int fileordirExist(char* fpath);
+
+int fileordirExist(char* fpath,char *file);
 
 char* getextname(char*);
 
@@ -174,13 +175,17 @@ void process_cli(int connectfd, sockaddr_in client)
             //is this a dir
             if(IsDIR(filepath))
             {
+                memset(filepath,0,sizeof(filepath));
                 cout << "directory" << endl;
-                if( fileordirExist( strcat(filepath,"index.htm") ))
+                // getcwd »ñÈ¡µ±Ç°µÄ¹¤×÷Â·¾¶
+                char *path = getcwd(NULL,0);
+                puts(path);
+                if( fileordirExist(path,"index.htm"))
                 {
                     sendobj(connectfd,"index.htm");
 
                 }
-                else if(fileordirExist(strcat(filepath,"index.html")))
+                else if(fileordirExist(path,"index.html"))
                 {
                     sendobj(connectfd,"index.html");
 
@@ -189,7 +194,26 @@ void process_cli(int connectfd, sockaddr_in client)
                 {
                     msg404(connectfd);
                 }
+                #if 0
+                char filep[128];
+                memset(failp,0,sizeof(filep));
+                if( fileordirExist( strcat(path,"index.htm") ))
+                {
+                    sendobj(connectfd,"index.htm");
 
+                }
+                else if(fileordirExist(strcat(path,"index.html")))
+                {
+                    sendobj(connectfd,"index.html");
+
+                }
+                else
+                {
+                    msg404(connectfd);
+                }
+                #endif
+                free(path);
+                
             }
             else
             {
@@ -222,10 +246,22 @@ void msg404(int connectfd)
 }
 
 //is the filepath a file  or directory
+int fileordirExist(char* fpath,char *file)
+{
+    struct stat filestat;
+    cout << "fileoddirExist...." << fpath << endl;
+    char filepath[256];
+    memset(filepath,0,sizeof(filepath));
+    sprintf(filepath,"%s/%s",fpath,file);
+    cout << "filepath: " << filepath << endl;
+    return (  stat(filepath,&filestat) != -1);
+}
+
 int fileordirExist(char* fpath)
 {
     struct stat filestat;
-
+    cout << "fileoddirExist...." << fpath << endl;
+   
     return (  stat(fpath,&filestat) != -1);
 }
 
