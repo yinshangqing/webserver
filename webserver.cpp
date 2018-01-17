@@ -2,9 +2,9 @@
 	> File Name: webserver.cpp
 	> Author: yinshangqing
 	> Mail: 841668821@qq.com 
-	> Created Time: 2018骞?鏈?4鏃?鏄熸湡鏃?20鐐?6鍒?9绉?************************************************************************/
-
-
+	> Created Time: 2018年01月08日 星期三 11时35分23秒
+ ************************************************************************/
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
