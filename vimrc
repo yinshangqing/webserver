@@ -1,4 +1,4 @@
-map <F9> :call SaveInputData()<CR>
+﻿map <F9> :call SaveInputData()<CR>
 func! SaveInputData()
 	exec "tabnew"
 	exec 'normal "+gP'
@@ -70,7 +70,7 @@ func SetTitle()
 	if &filetype == 'sh' 
 		call setline(1,"\#########################################################################") 
 		call append(line("."), "\# File Name: ".expand("%")) 
-		call append(line(".")+1, "\# Author: yinsq") 
+		call append(line(".")+1, "\# Author: yinshangqing") 
 		call append(line(".")+2, "\# mail: 841668821@qq.com") 
 		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
 		call append(line(".")+4, "\#########################################################################") 
@@ -79,20 +79,31 @@ func SetTitle()
 	else 
 		call setline(1, "/*************************************************************************") 
 		call append(line("."), "	> File Name: ".expand("%")) 
-		call append(line(".")+1, "	> Author: yinsq") 
+		call append(line(".")+1, "	> Author: yinshangqing") 
 		call append(line(".")+2, "	> Mail: 841668821@qq.com ") 
 		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
 		call append(line(".")+4, " ************************************************************************/") 
 		call append(line(".")+5, "")
 	endif
 	if &filetype == 'cpp'
-		call append(line(".")+6, "#include<iostream>")
+		call append(line(".")+6, "#include <iostream>")
 		call append(line(".")+7, "using namespace std;")
 		call append(line(".")+8, "")
 	endif
 	if &filetype == 'c'
-		call append(line(".")+6, "#include<stdio.h>")
-		call append(line(".")+7, "")
+		call append(line(".")+6,  "#include <stdio.h>")
+		call append(line(".")+7,  "#include <stdlib.h>")
+		call append(line(".")+8,  "#include <string.h>")
+		call append(line(".")+9,  "#include <unistd.h>")
+		call append(line(".")+10, "#include <errno.h>")
+		call append(line(".")+11, "#include <sys/types.h>")
+		call append(line(".")+12, "#include <sys/socket.h>")
+		call append(line(".")+13, "#include <sys/stat.h>")
+		call append(line(".")+14, "#include <netinet/in.h>")
+		call append(line(".")+15, "//#include <pthread.h>")
+		call append(line(".")+16, "#include <arpa/inet.h>")
+		call append(line(".")+17, "#include <fcntl.h>")
+		call append(line(".")+18, "")
 	endif
 	"	if &filetype == 'java'
 	"		call append(line(".")+6,"public class ".expand("%"))

@@ -1,0 +1,104 @@
+<!DOCTYPE.html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登陆</title>
+	<link href="testlogin.css" rel="stylesheet" type="type/css"/>
+<style>
+	#login{
+		width:290px;
+		height:auto;
+		overflow:hidden;
+		border:solid 1px #CCCCCC
+	}
+	#login_title{
+		width:100%;
+		height:40px;
+		line-height:40px;
+		background-color:#F60;
+		text-align:center;
+	}
+	.line{
+		widget:250px;
+		height:30px;
+		line-height:30px;
+		margin-left:20px;
+		text-align:center;
+		font-family:楷体;
+	}
+	.line input{
+		width:150px;
+	}
+	.line a{
+		font-size:14px;
+		color:black;
+	}
+	.line span{
+		color:#F00;
+	}
+	#lon_submit{
+		display:block;
+		width:200px;
+		height:30px;
+		margin-left:45px;
+		margin-top:15px;
+		margin-bottom:5px;
+	}
+</style>
+</head>
+
+
+</script>
+<body>
+<form action="#" method="post">
+	<div id="login">
+		<div id="login_title">登&nbsp;陆</div>
+		<div class="line"><span id="msg"></span></div>
+		<div class="line">账号&nbsp;&nbsp;
+			<input name="username" type="text" placeholder="账号/手机/邮箱">
+		</div>
+		<div class="line">密码&nbsp;&nbsp;
+			<input name="password" type="password" placeholder="请输入密码"/>
+		</div>
+		<input id="lon_submit" type="button" value="登陆" onclick="javascript:getDataByPost();"/>
+			<input id="lon_submit" type="button" value="创建新账号" onclick="location.href='http://10.134.13.24.8080/redmine/issues/10666.html'">
+		<div class="line"><a href="#">找回密码</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://10.134.13.24.8080/redmine/issues/10666.html">注册账号</a></div>
+	<div>
+</body>
+
+</html>
+
+
+
+<script type=text/javascript>
+	function getData(verb)
+	{
+		var webRequest = new Sys.Net.WebRequest();
+		if(verb == "POST")
+		{	
+			webRequest.set_url("ProcessRequest.aspx");
+		}
+		else
+		{
+			webRequest.set_url("ProcessRequest.aspx?AID="+$get("msg").value);
+		}
+		webRequest.add_completed(OnComjpleted);
+		webRequest.set_httpVerb(verb);
+		var requestBody = "AID" + $get("msg").value;
+		webRequest.set_body(requestBody);
+		webRequest.get_headers()["Conten_Length"]=requestBody.length;
+		webRequest.invoke();
+		webRequest.invoke();
+	}
+function getDataByPost()
+{
+	getData("POST");
+}
+function OnComjpleted(executor,evenArgs)
+{
+	if(executor.get_responseAvailable())
+	{
+		$get("msg").innerHTML = executor.get_responseData();
+	}
+	
+}
